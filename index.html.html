@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmobiliaria Villa Trébol | Compra, Venta y Alquiler de Inmuebles</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3d59;
+            --pastel-blue: #e0ffc; /* Soft pastel accent container */
+            --accent-blue: #4388cc;
+            --bg-light: #f8fafc;
+            --text-dark: #2c3e50;
+            --gray-subtle: #6c757d;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif, system-ui, -apple-system;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Custom Navbar */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .navbar-brand span {
+            color: var(--accent-blue);
+        }
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark) !important;
+            transition: color 0.2s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-blue) !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(rgba(30, 61, 89, 0.75), rgba(30, 61, 89, 0.85)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            padding: 140px 0 100px 0;
+            color: #ffffff;
+        }
+
+        /* Search Filter Box */
+        .search-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Property Cards */
+        .property-card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .property-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        .property-img-wrapper {
+            position: relative;
+            height: 230px;
+            overflow: hidden;
+        }
+        .property-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .property-card:hover .property-img-wrapper img {
+            transform: scale(1.08);
+        }
+        .badge-status {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--accent-blue);
+            color: #fff;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Services Section */
+        .service-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            border-bottom: 4px solid var(--accent-blue);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .service-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(67, 136, 204, 0.15);
+        }
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: #eaf3fb;
+            color: var(--accent-blue);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        /* Floating Contact Widgets */
+        .floating-chat {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+        .float-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        .whatsapp-float {
+            background-color: #25d366;
+        }
+        .instagram-float {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #df5950 45%, #c62368 60%, #6835bc 90%);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-blue);
+            color: #cbd5e1;
+            padding: 60px 0 30px 0;
+        }
+        footer h5 {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        footer a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        footer a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-dark fs-4" href="#">
+                <i class="fa-solid fa-house-chimney text-primary me-2"></i>Villa<span>Trébol</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-lg-center gap-lg-3">
+                    <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#propiedades">Propiedades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a href="https://wa.me/587838784" target="_blank" class="btn btn-primary px-4 rounded-pill shadow-sm">
+                            <i class="fa-brands fa-whatsapp me-1"></i> Asesoría
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="inicio" class="hero-section text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-3">Encuentra el hogar de tus sueños</h1>
+                    <p class="lead mb-5 text-light opacity-85">Casas, apartamentos y locales comerciales exclusivos con la asesoría profesional que mereces.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filter Search Box -->
+    <div class="container">
+        <div class="search-box">
+            <form id="searchForm" class="row g-3 align-items-center">
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold text-muted small">Operación</label>
+                    <select class="form-select border-0 bg-light" id="filterType">
+                        <option value="todos">Todos</option>
+                        <option value="venta">Venta</option>
+                        <option value="alquiler">Alquiler</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold text-muted small">Tipo de Inmueble</label>
+                    <select class="form-select border-0 bg-light" id="filterCategory">
+                        <option value="todos">Cualquiera</option>
+                        <option value="casa">Casa Residencial</option>
+                        <option value="apartamento">Apartamento</option>
+                        <option value="comercial">Local Comercial</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold text-muted small">Ubicación</label>
+                    <input type="text" class="form-control border-0 bg-light" id="filterLocation" placeholder="Ej. Zona Norte, Centro...">
+                </div>
+                <div class="col-md-2 d-grid pt-2">
+                    <button type="submit" class="btn btn-primary py-2 mt-3 fw-semibold">
+                        <i class="fa-solid fa-magnifying-glass me-1"></i> Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Properties Catalog -->
+    <section id="propiedades" class="py-5 mt-4">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h6 class="text-primary fw-bold text-uppercase tracking-wider">Catálogo Exclusivo</h6>
+                <h2 class="fw-bold display-6">Propiedades Destacadas</h2>
+                <div class="mx-auto mt-2" style="width: 60px; height: 3px; background-color: var(--accent-blue);"></div>
+            </div>
+
+            <div class="row g-4" id="propertyGrid">
+                <!-- Property 1 -->
+                <div class="col-lg-4 col-md-6 property-item" data-type="venta" data-category="casa" data-location="zona norte">
+                    <div class="property-card h-100">
+                        <div class="property-img-wrapper">
+                            <span class="badge-status">En Venta</span>
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Moderna Villa Residencial" onerror="this.src='https://placehold.co/600x400/1e3d59/ffffff?text=Villa+Residencial'">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold mb-2">Moderna Villa Residencial</h5>
+                            <p class="text-muted small mb-3"><i class="fa-solid fa-location-dot text-danger me-1"></i> Zona Norte, Exclusiva Urbanización</p>
+                            <div class="d-flex justify-content-between text-secondary mb-3 small border-top border-bottom py-2">
+                                <span><i class="fa-solid fa-bed me-1 text-primary"></i> 4 Hab</span>
+                                <span><i class="fa-solid fa-bath me-1 text-primary"></i> 3 Baños</span>
+                                <span><i class="fa-solid fa-ruler-combined me-1 text-primary"></i> 320 m²</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                <span class="h5 text-primary fw-bold mb-0">$245,000</span>
+                                <a href="https://wa.me/587838784?text=Hola,%20estoy%20interesado%20en%20la%20Moderna%20Villa%20Residencial" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 2 -->
+                <div class="col-lg-4 col-md-6 property-item" data-type="alquiler" data-category="apartamento" data-location="centro">
+                    <div class="property-card h-100">
+                        <div class="property-img-wrapper">
+                            <span class="badge-status bg-success">En Alquiler</span>
+                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" alt="Apartamento Céntrico de Lujo" onerror="this.src='https://placehold.co/600x400/1e3d59/ffffff?text=Apartamento+Lujo'">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold mb-2">Apartamento Céntrico de Lujo</h5>
+                            <p class="text-muted small mb-3"><i class="fa-solid fa-location-dot text-danger me-1"></i> Centro Financiero</p>
+                            <div class="d-flex justify-content-between text-secondary mb-3 small border-top border-bottom py-2">
+                                <span><i class="fa-solid fa-bed me-1 text-primary"></i> 2 Hab</span>
+                                <span><i class="fa-solid fa-bath me-1 text-primary"></i> 2 Baños</span>
+                                <span><i class="fa-solid fa-ruler-combined me-1 text-primary"></i> 115 m²</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                <span class="h5 text-primary fw-bold mb-0">$850 / mes</span>
+                                <a href="https://wa.me/587838784?text=Hola,%20estoy%20interesado%20en%20el%20Apartamento%20Céntrico" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 3 -->
+                <div class="col-lg-4 col-md-6 property-item" data-type="venta" data-category="comercial" data-location="avenida principal">
+                    <div class="property-card h-100">
+                        <div class="property-img-wrapper">
+                            <span class="badge-status">En Venta</span>
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Local Comercial Premium" onerror="this.src='https://placehold.co/600x400/1e3d59/ffffff?text=Local+Comercial'">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold mb-2">Local Comercial Premium</h5>
+                            <p class="text-muted small mb-3"><i class="fa-solid fa-location-dot text-danger me-1"></i> Avenida Principal de Alto Tráfico</p>
+                            <div class="d-flex justify-content-between text-secondary mb-3 small border-top border-bottom py-2">
+                                <span><i class="fa-solid fa-store me-1 text-primary"></i> Amplio Salón</span>
+                                <span><i class="fa-solid fa-restroom me-1 text-primary"></i> 2 Baños</span>
+                                <span><i class="fa-solid fa-ruler-combined me-1 text-primary"></i> 180 m²</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                <span class="h5 text-primary fw-bold mb-0">$190,000</span>
+                                <a href="https://wa.me/587838784?text=Hola,%20estoy%20interesado%20en%20el%20Local%20Comercial" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 4 -->
+                <div class="col-lg-4 col-md-6 property-item" data-type="venta" data-category="casa" data-location="valle verde">
+                    <div class="property-card h-100">
+                        <div class="property-img-wrapper">
+                            <span class="badge-status">En Venta</span>
+                            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80" alt="Casa Campestre con Jardín" onerror="this.src='https://placehold.co/600x400/1e3d59/ffffff?text=Casa+Campestre'">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold mb-2">Casa Campestre con Jardín</h5>
+                            <p class="text-muted small mb-3"><i class="fa-solid fa-location-dot text-danger me-1"></i> Urbanización Valle Verde</p>
+                            <div class="d-flex justify-content-between text-secondary mb-3 small border-top border-bottom py-2">
+                                <span><i class="fa-solid fa-bed me-1 text-primary"></i> 5 Hab</span>
+                                <span><i class="fa-solid fa-bath me-1 text-primary"></i> 4 Baños</span>
+                                <span><i class="fa-solid fa-ruler-combined me-1 text-primary"></i> 450 m²</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                <span class="h5 text-primary fw-bold mb-0">$320,000</span>
+                                <a href="https://wa.me/587838784?text=Hola,%20estoy%20interesado%20en%20la%20Casa%20Campestre" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 5 -->
+                <div class="col-lg-4 col-md-6 property-item" data-type="alquiler" data-category="apartamento" data-location="vista panoramica">
+                    <div class="property-card h-100">
+                        <div class="property-img-wrapper">
+                            <span class="badge-status bg-success">En Alquiler</span>
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Penthouse Vista Panorámica" onerror="this.src='https://placehold.co/600x400/1e3d59/ffffff?text=Penthouse'">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold mb-2">Penthouse Vista Panorámica</h5>
+                            <p class="text-muted small mb-3"><i class="fa-solid fa-location-dot text-danger me-1"></i> Torre Alta Vista</p>
+                            <div class="d-flex justify-content-between text-secondary mb-3 small border-top border-bottom py-2">
+                                <span><i class="fa-solid fa-bed me-1 text-primary"></i> 3 Hab</span>
+                                <span><i class="fa-solid fa-bath me-1 text-primary"></i> 3 Baños</span>
+                                <span><i class="fa-solid fa-ruler-combined me-1 text-primary"></i> 240 m²</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                <span class="h5 text-primary fw-bold mb-0">$1,400 / mes</span>
+                                <a href="https://wa.me/587838784?text=Hola,%20estoy%20interesado%20en%20el%20Penthouse" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 6 -->
+                <div class="col-lg-4 col-md-6 property-item" data-type="venta" data-category="casa" data-location="residencias del este">
+                    <div class="property-card h-100">
+                        <div class="property-img-wrapper">
+                            <span class="badge-status">En Venta</span>
+                            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" alt="Townhouse Familiar Elegante" onerror="this.src='https://placehold.co/600x400/1e3d59/ffffff?text=Townhouse'">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold mb-2">Townhouse Familiar Elegante</h5>
+                            <p class="text-muted small mb-3"><i class="fa-solid fa-location-dot text-danger me-1"></i> Residencias del Este</p>
+                            <div class="d-flex justify-content-between text-secondary mb-3 small border-top border-bottom py-2">
+                                <span><i class="fa-solid fa-bed me-1 text-primary"></i> 3 Hab</span>
+                                <span><i class="fa-solid fa-bath me-1 text-primary"></i> 3 Baños</span>
+                                <span><i class="fa-solid fa-ruler-combined me-1 text-primary"></i> 195 m²</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                <span class="h5 text-primary fw-bold mb-0">$165,000</span>
+                                <a href="https://wa.me/587838784?text=Hola,%20estoy%20interesado%20en%20el%20Townhouse" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-5 bg-white">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h6 class="text-primary fw-bold text-uppercase tracking-wider">Lo Que Hacemos</h6>
+                <h2 class="fw-bold display-6">Nuestros Servicios Inmobiliarios</h2>
+                <div class="mx-auto mt-2" style="width: 60px; height: 3px; background-color: var(--accent-blue);"></div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-key"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Compra y Venta</h4>
+                        <p class="text-muted mb-0">Te acompañamos en todo el proceso legal y comercial para garantizar transacciones seguras, rápidas y rentables.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-file-contract"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Alquileres Seguros</h4>
+                        <p class="text-muted mb-0">Selección rigurosa de arrendatarios y contratos respaldados jurídicamente para tu total tranquilidad.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Avalúo y Asesoría</h4>
+                        <p class="text-muted mb-0">Tasación profesional de inmuebles basada en el mercado actual para maximizar el valor de tu inversión.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="nosotros" class="py-5">
+        <div class="container py-4">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80" alt="Oficina Inmobiliaria Villa Trébol" class="img-fluid rounded-4 shadow-lg w-100" onerror="this.src='https://placehold.co/600x400/1e3d59/ffffff?text=Villa+Trebol+Equipo'">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h6 class="text-primary fw-bold text-uppercase tracking-wider">Sobre Villa Trébol</h6>
+                    <h2 class="fw-bold display-6 mb-4">Expertos apasionados por conectar familias con su hogar ideal</h2>
+                    <p class="text-muted mb-4">En Inmobiliaria Villa Trébol combinamos años de experiencia en el sector inmobiliario con un servicio personalizado y transparente. Nuestro compromiso es entender tus necesidades para ofrecerte opciones reales que superen tus expectativas.</p>
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-circle-check text-primary fs-4 me-3"></i>
+                                <span class="fw-semibold">Asesoría Certificada</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-circle-check text-primary fs-4 me-3"></i>
+                                <span class="fw-semibold">Atención Personalizada</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-circle-check text-primary fs-4 me-3"></i>
+                                <span class="fw-semibold">Respaldo Jurídico</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-circle-check text-primary fs-4 me-3"></i>
+                                <span class="fw-semibold">Amplia Cartera</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/587838784" target="_blank" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+                        <i class="fa-brands fa-whatsapp me-2"></i> Contáctanos Directo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-5 bg-white">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mb-5">
+                    <h6 class="text-primary fw-bold text-uppercase tracking-wider">Ponte en contacto</h6>
+                    <h2 class="fw-bold display-6">¿Listo para dar el siguiente paso?</h2>
+                    <p class="text-muted">Déjanos tus datos o escríbenos directamente y un asesor se comunicará contigo de inmediato.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="p-4 p-md-5 rounded-4 shadow-sm bg-light border">
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="contactName" required placeholder="Tu nombre">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Teléfono / WhatsApp</label>
+                                    <input type="tel" class="form-control" id="contactPhone" required placeholder="+58 ...">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="contactEmail" required placeholder="correo@ejemplo.com">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">Mensaje o Inmueble de Interés</label>
+                                    <textarea class="form-control" id="contactMsg" rows="4" required placeholder="Cuéntanos qué tipo de propiedad buscas..."></textarea>
+                                </div>
+                                <div class="col-12 d-grid pt-2">
+                                    <button type="submit" class="btn btn-primary py-3 fw-semibold rounded-pill">
+                                        <i class="fa-solid fa-paper-plane me-2"></i> Enviar Mensaje
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="formSuccessAlert" class="alert alert-success mt-4 d-none text-center" role="alert">
+                            ¡Gracias por escribirnos! Nos pondremos en contacto contigo a la brevedad.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-white mb-3">
+                        <i class="fa-solid fa-house-chimney text-accent me-2"></i>VillaTrébol
+                    </h5>
+                    <p class="small text-muted mb-3" style="color: #cbd5e1 !important;">Tu aliado estratégico y confiable en el mercado inmobiliario. Compras, ventas y alquileres seguros.</p>
+                    <div class="d-flex gap-3 fs-5">
+                        <a href="https://instagram.com/villatrebol.sc" target="_blank" class="text-white"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/587838784" target="_blank" class="text-white"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Enlaces</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#propiedades">Propiedades</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5>Contacto Directo</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small text-muted" style="color: #cbd5e1 !important;">
+                        <li><i class="fa-solid fa-phone me-2 text-primary"></i> +58 783-8784</li>
+                        <li><i class="fa-solid fa-envelope me-2 text-primary"></i> contacto@villatrebol.com</li>
+                        <li><i class="fa-solid fa-location-dot me-2 text-primary"></i> Oficina Principal, Ciudad</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5>Red Social</h5>
+                    <p class="small text-muted" style="color: #cbd5e1 !important;">Síguenos en Instagram para ver tours virtuales diarios y nuevas exclusivas:</p>
+                    <a href="https://instagram.com/villatrebol.sc" target="_blank" class="btn btn-outline-light btn-sm rounded-pill px-4">
+                        <i class="fa-brands fa-instagram me-1"></i> @villatrebol.sc
+                    </a>
+                </div>
+            </div>
+            <hr class="border-secondary opacity-25">
+            <div class="row text-center text-md-start small text-muted py-2" style="color: #94a3b8 !important;">
+                <div class="col-md-6 mb-2 mb-md-0">
+                    &copy; 2026 Inmobiliaria Villa Trébol. Todos los derechos reservados.
+                </div>
+                <div class="col-md-6 text-md-end">
+                    Diseñado con excelencia y profesionalismo.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Widgets: WhatsApp & Instagram -->
+    <div class="floating-chat">
+        <a href="https://instagram.com/villatrebol.sc" target="_blank" class="float-btn instagram-float" title="Síguenos en Instagram @villatrebol.sc">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/587838784" target="_blank" class="float-btn whatsapp-float" title="Escríbenos por WhatsApp +587838784">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Property filtering system
+            const searchForm = document.getElementById('searchForm');
+            const propertyItems = document.querySelectorAll('.property-item');
+
+            searchForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const filterType = document.getElementById('filterType').value;
+                const filterCategory = document.getElementById('filterCategory').value;
+                const filterLocation = document.getElementById('filterLocation').value.toLowerCase().trim();
+
+                propertyItems.forEach(item => {
+                    const type = item.getAttribute('data-type');
+                    const category = item.getAttribute('data-category');
+                    const location = item.getAttribute('data-location');
+
+                    let matchesType = (filterType === 'todos' || type === filterType);
+                    let matchesCategory = (filterCategory === 'todos' || category === filterCategory);
+                    let matchesLocation = (filterLocation === '' || location.includes(filterLocation));
+
+                    if (matchesType && matchesCategory && matchesLocation) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+
+            // Contact Form Simulation Submission
+            const contactForm = document.getElementById('contactForm');
+            const successAlert = document.getElementById('formSuccessAlert');
+
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                successAlert.classList.remove('d-none');
+                contactForm.reset();
+                setTimeout(() => {
+                    successAlert.classList.add('d-none');
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
